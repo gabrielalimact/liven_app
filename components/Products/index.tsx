@@ -2,10 +2,18 @@ import React from 'react';
 import { View, StyleSheet, Image, Text, Pressable } from 'react-native';
 import { Product } from '../../types/products';
 import { COLORS, SIZES } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Products = (props: { product: Product }) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('ProductDetails', { productId: props.product.id });
+  }
   return (
-    <View style={styles.viewProducts}>
+    <Pressable onPress={() =>handlePress()} style={styles.viewProducts}>
+    <View>
       <Image
         source={{ uri: props.product.image }}
         style={styles.image}
@@ -17,6 +25,7 @@ const Products = (props: { product: Product }) => {
         ${props.product.price}
       </Text>
     </View>
+    </Pressable>
   );
 }
 
@@ -33,7 +42,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 10,
     padding: 10,
-    elevation: 5,
+    shadowColor: COLORS.gray2,
+    shadowOffset:{
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
   },
   cartBar: {
     flexDirection: 'row',
@@ -48,6 +62,7 @@ const styles = StyleSheet.create({
   priceItem: {
     fontFamily: 'bold',
     fontSize: 18,
+    textAlign: 'center',
   }
 });
 export default Products;
