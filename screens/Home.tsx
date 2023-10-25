@@ -171,6 +171,8 @@ const HomeScreen = () => {
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
+            gap: 10,
+            marginBottom: SIZES.xxLarge,
           }}>
 
             {data?.map((item, index) => (
