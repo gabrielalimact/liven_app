@@ -6,6 +6,7 @@ import {
 import { getProducts } from '../api/products';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, SIZES } from '../constants';
+import Products from '../components/Products';
 
 type Product = {
   category: string,
@@ -173,20 +174,11 @@ const HomeScreen = () => {
           }}>
 
             {data?.map((item, index) => (
-              <View key={index} style={styles.viewProducts}>
-                <Image
-                  source={{ uri: item.image }}
-                  style={styles.image}
-                  />
-                <Text>
-                  {item.title}
-                </Text>
-              </View>
+              <Products key={index} product={item} />
             ))}
+        
           </View>
         )}
-        
-
       
       </ScrollView>
     </SafeAreaView>
@@ -234,6 +226,12 @@ const styles = StyleSheet.create({
     width: '45%',
     alignItems: 'center',
     marginBottom: SIZES.medium,
+  },
+  cartBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center',
   }
 });
 
