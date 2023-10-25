@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavagation from './navagation/BottomTabNavagation';
-
+import ProductDetails from './screens/ProductDetails';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -34,6 +34,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Bottom Navagation" component={BottomTabNavagation} options={{
+          headerShown: false
+        }} />
+
+        <Stack.Screen name="ProductDetails" component={ProductDetails} options={{
           headerShown: false
         }} />
       </Stack.Navigator>
