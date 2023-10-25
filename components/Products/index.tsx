@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, Pressable } from 'react-native';
 import { Product } from '../../types/products';
-import { SIZES } from '../../constants';
-import { Ionicons } from '@expo/vector-icons';
+import { COLORS, SIZES } from '../../constants';
 
 const Products = (props: { product: Product }) => {
   return (
@@ -10,43 +9,45 @@ const Products = (props: { product: Product }) => {
       <Image
         source={{ uri: props.product.image }}
         style={styles.image}
-        />
-      <Text>
+      />
+      <Text style={styles.titleItem}>
         {props.product.title}
       </Text>
-      <Text>
+      <Text style={styles.priceItem}>
         ${props.product.price}
       </Text>
-
-      <View>
-        <Pressable style={styles.cartBar}>
-          <Text>
-            Add to Cart
-          </Text>
-          <Ionicons name="cart-outline" size={24} color="black" />
-        </Pressable>
-      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: 180,
-    height: 180,
+    width: 150,
+    height: 150,
     marginBottom: SIZES.small,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   viewProducts: {
-    width: '45%',
+    width: '48%',
     alignItems: 'center',
-    marginBottom: SIZES.medium,
+    backgroundColor: COLORS.white,
+    borderRadius: 10,
+    padding: 10,
+    elevation: 5,
   },
   cartBar: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    justifyContent: 'center',
+  },
+  titleItem: {
+    fontFamily: 'regular',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  priceItem: {
+    fontFamily: 'bold',
+    fontSize: 18,
   }
 });
 export default Products;
