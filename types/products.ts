@@ -10,3 +10,8 @@ export type Product = {
   },
   title: string
 }
+
+export type ProductsToCart = {
+  product: Product,
+  quantity: number,
+}

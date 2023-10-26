@@ -2,11 +2,16 @@ import React from 'react';
 import { View, StyleSheet, Image, Text, Pressable } from 'react-native';
 import { Product } from '../../types/products';
 import { COLORS, SIZES } from '../../constants';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 
+
+type ProductsStackParamList = {
+  ProductDetails: { productId: number } | undefined;
+};
 
 const Products = (props: { product: Product }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<ProductsStackParamList>>();
 
   const handlePress = () => {
     navigation.navigate('ProductDetails', { productId: props.product.id });

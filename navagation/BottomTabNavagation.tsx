@@ -1,13 +1,8 @@
 import React from 'react';
-
-import {
-  View, Text
-} from 'react-native';
 import HomeScreen from '../screens/Home';
 import { createBottomTabNavigator, BottomTabNavigationOptions  } from '@react-navigation/bottom-tabs';
-import Search from '../screens/Search';
 import Cart from '../screens/Cart';
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants';
 
 const Tab = createBottomTabNavigator();
@@ -37,21 +32,6 @@ const BottomTabNavagation = () => {
             return (
               <Ionicons 
                 name={ focused ? 'home' : 'home-outline'} 
-                size={24} 
-                color={focused ? COLORS.primary : COLORS.gray2} />
-            );
-          }
-        }}
-      />
-
-      <Tab.Screen 
-        name="Search" 
-        component={Search} 
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <Ionicons 
-                name={ focused ? 'search' : 'search-outline'} 
                 size={24} 
                 color={focused ? COLORS.primary : COLORS.gray2} />
             );
