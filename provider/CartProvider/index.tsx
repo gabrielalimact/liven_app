@@ -5,13 +5,13 @@ import { Product, ProductsToCart } from '../../types/products';
 interface CartContextType {
   cart: ProductsToCart[];
   addToCart: (product: Product) => void;
-  removeToCart: (product: Product) => void;
+  removeToCart: (product: Product, remove?: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType>({
   cart: [],
   addToCart: (product: Product) => {},
-  removeToCart: (product: Product) => {},
+  removeToCart: (product: Product, remove?: boolean) => {},
 });
 
 const CartProvider = ({ children } : any) => {
@@ -60,14 +60,14 @@ const CartProvider = ({ children } : any) => {
     }
   };
 
-  const removeToCart = (product: Product) => {
+  const removeToCart = (product: Product, remove?: boolean) => {
     const existingIndex = cart.findIndex((item) => item.product.id === product?.id);
 
     if (existingIndex !== -1) {
       const updatedCart = [...cart];
       updatedCart[existingIndex].quantity -= 1;
       
-      if(updatedCart[existingIndex].quantity === 0) {
+      if(updatedCart[existingIndex].quantity === 0 || remove) {
         updatedCart.splice(existingIndex, 1);
       }
 

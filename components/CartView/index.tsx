@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
 import { ProductsToCart } from '../../types/products';
 import { COLORS } from '../../constants'
-import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useCart } from '../../provider/CartProvider';
 
 
@@ -15,7 +15,7 @@ const CartView = (props: { product: ProductsToCart }) => {
     return title;
   }
 
-  const truncatedTitle = useMemo(() => truncateTitle(props.product.product.title, 15), [props.product.product.title]);
+  const truncatedTitle = useMemo(() => truncateTitle(props.product.product.title, 25), [props.product.product.title]);
   const totalPrice = useMemo(() => (props.product.product.price * props.product.quantity).toFixed(2), [props.product.product.price, props.product.quantity]);
 
 
@@ -25,30 +25,32 @@ const CartView = (props: { product: ProductsToCart }) => {
   const handleRemoveQuantity = () => {
     removeToCart(props.product.product)
   }
+  const handleRemoveAll = () => {
+    removeToCart(props.product.product, true)
+  }
 
 
   return (
     <View style={styles.container}>
       <View style={styles.cardView}>
         <Image source={{ uri: props.product.product.image }} style={styles.image} />
-        <View style={{ flexDirection: 'column'}}>
+        <View style={{flex: 2}}>
           <View style={styles.titleBar}>
-            <Text style={{fontSize: 22}}>{truncatedTitle}</Text>
-            <Pressable onPress={handleAddQuantity}>
-              <AntDesign name="close" size={15} color="black" />
+            <Text style={{fontSize: 16}}>{truncatedTitle}</Text>
+            <Pressable onPress={handleRemoveAll}>
+            <Ionicons name='ios-close' size={20} color={COLORS.gray2}/>
             </Pressable>
           </View>
           <View style={styles.priceQuantity}>
             <Text style={{fontSize: 18}}>${totalPrice}</Text>
             <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
               <Pressable onPress={handleRemoveQuantity}>
-                <AntDesign name="minuscircleo" size={24} color="black" />
+                <Ionicons name="ios-remove" size={30} color={COLORS.red} />
               </Pressable>
-              <Text style={{fontSize: 16}}>{props.product.quantity}</Text>
+              <Text style={{fontSize: 18}}>{props.product.quantity}</Text>
               <Pressable onPress={handleAddQuantity}>
-                <AntDesign name="pluscircleo" size={24} color="black" />
+                <Ionicons name="ios-add" size={30} color={COLORS.primary} />
               </Pressable>
-
             </View>
           </View>
         </View>
@@ -63,26 +65,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    shadowColor: COLORS.gray2,
-    shadowOffset: {
-      width: 0,
-      height: -1,
-    },
-    shadowOpacity: .5,
     padding: 10,
     marginBottom: 10,
-    borderRadius: 20,
+    minHeight: 120,
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.gray2,
+
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 75,
+    height: 75,
     marginBottom: 10,
     resizeMode: 'contain',
   },
   cardView: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 15,
   },
   priceQuantity: {
     flexDirection: 'row',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   titleBar: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    justifyContent: 'center'
-  }
+    paddingBottom: 30,
+    justifyContent: 'space-between'
+  },
 })
