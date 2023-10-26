@@ -4,49 +4,34 @@ import { getProductDetails } from '../api/products';
 import { Product } from '../types/products';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Route, useNavigation } from '@react-navigation/native';
+import { Route } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { COLORS, SIZES } from '../constants';
 import LoadingSplash from '../components/Loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCart } from '../provider/CartProvider';
+
+type CartStackParamList = {
+  Cart: any | undefined;
+};
 
 
 const ProductDetails = ({ route }: { route: Route<string, { productId: string }> }) => {
   const { productId } = route.params;
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<CartStackParamList>>();
   const [product, setProduct] = useState<Product>()
   const [isLoading, setIsLoading] = useState(true)
-  const [cart, setCart] = useState<Product[]>([])
+  const { addToCart } = useCart()
 
   const handlePressBack = () => {
     navigation.goBack();
   }
-
-  const loadCart = async () => {
-    try {
-      const cartData = await AsyncStorage.getItem('cart');
-      if (cartData) {
-        console.log('Carrinho carregado:', JSON.parse(cartData));
-        setCart(JSON.parse(cartData));
-      }
-    } catch (error) {
-      console.error('Erro ao carregar o carrinho:', error);
-    }
-  };
-  const saveCart = async (cartData: Product[]) => {
-    try {
-      await AsyncStorage.setItem('cart', JSON.stringify(cartData));
-      console.log(cartData)
-    } catch (error) {
-      console.error('Erro ao salvar o carrinho:', error);
-    }
-  };
-
+  
   const handleAddToCart = () => {
-    const updatedCart = [...cart, product as Product];
-    setCart(updatedCart);
-
-    saveCart(updatedCart);
-
+    if(product) {
+      addToCart(product)
+    }
+    
     Alert.alert(
       'Item added to cart',
       'What would you like to do?',
@@ -68,9 +53,6 @@ const ProductDetails = ({ route }: { route: Route<string, { productId: string }>
       setProduct(res)
       setIsLoading(false)
     })
-
-    loadCart();
-
   }, [productId])
 
   return (
