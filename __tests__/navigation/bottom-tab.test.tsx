@@ -40,4 +40,30 @@ describe('BottomTabNavigation', () => {
     expect(home).toBeTruthy();
     expect(cart).toBeTruthy();
   });
+
+  it('deve alternar entre as guias', () => {
+    const { getByTestId } = render( 
+    <NavigationContainer>
+      <BottomTabNavigation />
+    </NavigationContainer>
+  );
+
+    const homeTab = getByTestId('home-tab');
+    const cartTab = getByTestId('cart-tab');
+
+    // Clique na guia Home
+    fireEvent.press(homeTab);
+    
+    // Verifique se a guia Home está ativa após o clique
+    expect(homeTab.props.accessibilityState.selected).toBeTruthy();
+    expect(cartTab.props.accessibilityState.selected).not.toBeTruthy();
+
+    // Clique na guia Cart
+    fireEvent.press(cartTab);
+
+    // Verifique se a guia Home está ativa após o clique
+    expect(cartTab.props.accessibilityState.selected).toBeTruthy();
+    expect(homeTab.props.accessibilityState.selected).not.toBeTruthy();
+    
+  });
 });
