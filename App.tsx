@@ -3,7 +3,7 @@ import * as SplashScreehn from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import BottomTabNavagation from './navagation/BottomTabNavagation';
+import BottomTabNavigation from './navigation/BottomTabNavigation';
 import ProductDetails from './screens/ProductDetails';
 import CartProvider from './provider/CartProvider';
 const Stack = createStackNavigator();
@@ -35,7 +35,7 @@ export default function App() {
     <CartProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Bottom Navagation" component={BottomTabNavagation} options={{
+          <Stack.Screen name="Bottom Navagation" component={BottomTabNavigation} options={{
             headerShown: false
           }} />
 
