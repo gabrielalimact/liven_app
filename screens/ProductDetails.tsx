@@ -15,8 +15,15 @@ type CartStackParamList = {
   Cart: any | undefined;
 };
 
-
-const ProductDetails = ({ route }: { route: Route<string, { productId: string }> }) => {
+type RouteProps = {
+  route: {
+    params: {
+      productId: number;
+    };
+  };
+  productMock?: Product;
+};
+const ProductDetails =  ({ route, productMock }: RouteProps) => {
   const { productId } = route.params;
   const navigation = useNavigation<StackNavigationProp<CartStackParamList>>();
   const [product, setProduct] = useState<Product>()
@@ -49,10 +56,16 @@ const ProductDetails = ({ route }: { route: Route<string, { productId: string }>
   }
 
   useEffect(() => {
-    getProductDetails(Number(productId)).then((res) => {
-      setProduct(res)
+    if(productMock) {
+      setProduct(productMock)
       setIsLoading(false)
-    })
+    } else{
+      getProductDetails(Number(productId)).then((res) => {
+        setProduct(res)
+        setIsLoading(false)
+      })
+    }
+
   }, [productId])
 
   return (
@@ -65,24 +78,25 @@ const ProductDetails = ({ route }: { route: Route<string, { productId: string }>
           </Pressable>
         </View>
         <ScrollView style={styles.container}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{alignItems: 'center'}} >
             <Image
               source={{ uri: product?.image }}
+              testID='image-product'
               style={styles.image}
             />
           </View>
           <View style={styles.ratingView}>
-            <Text style={styles.ratingText}>
+            <Text style={styles.ratingText} testID='rating-text'>
               <Ionicons name='star' size={18}/>
               {product?.rating.rate}</Text>
-            <Text style={styles.ratingCount}>{product?.rating.count} reviews</Text>
+            <Text style={styles.ratingCount} testID='rating-count'>{product?.rating.count} reviews</Text>
           </View>
-          <Text style={styles.title}>{product?.title}</Text>
-          <Text>{product?.description}</Text>
+          <Text style={styles.title} testID='title-product'>{product?.title}</Text>
+          <Text testID='description-product'>{product?.description}</Text>
           <View style={{height:70}}></View>
         </ScrollView>
         <View style={styles.bottomBar}>
-          <Text style={styles.price}>${product?.price}</Text>
+          <Text style={styles.price} testID='price-product'>${product?.price}</Text>
           <Pressable onPress={()=> handleAddToCart()} style={styles.pressableIconCard}>
             <Text style={{fontSize: 18, color: COLORS.white}}>Add to cart</Text>
             <Ionicons name='cart' size={30} color={COLORS.white}/>

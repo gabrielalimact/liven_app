@@ -37,19 +37,19 @@ const CartView = (props: { product: ProductsToCart }) => {
         <View style={{flex: 2}}>
           <View style={styles.titleBar}>
             <Text style={{fontSize: 16}}>{truncatedTitle}</Text>
-            <Pressable onPress={handleRemoveAll}>
-            <Ionicons name='ios-close' size={20} color={COLORS.gray2}/>
+            <Pressable onPress={handleRemoveAll}  testID='remove-all-button'>
+            <Ionicons name='ios-close' size={20} color={COLORS.gray2} />
             </Pressable>
           </View>
           <View style={styles.priceQuantity}>
             <Text style={{fontSize: 18}}>${totalPrice}</Text>
             <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-              <Pressable onPress={handleRemoveQuantity}>
+              <Pressable onPress={handleRemoveQuantity} testID='remove-quantity-button'>
                 <Ionicons name="ios-remove" size={30} color={COLORS.red} />
               </Pressable>
-              <Text style={{fontSize: 18}}>{props.product.quantity}</Text>
-              <Pressable onPress={handleAddQuantity}>
-                <Ionicons name="ios-add" size={30} color={COLORS.primary} />
+              <Text style={{fontSize: 18}} testID='quantity'>{props.product.quantity}</Text>
+              <Pressable onPress={handleAddQuantity} testID='add-quantity-button'>
+                <Ionicons name="ios-add" size={30} color={COLORS.primary} testID='add-button-icon'/>
               </Pressable>
             </View>
           </View>

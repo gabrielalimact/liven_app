@@ -22,6 +22,7 @@ const Products = (props: { product: Product }) => {
       <Image
         source={{ uri: props.product.image }}
         style={styles.image}
+        testID='image-product'
       />
       <Text style={styles.titleItem}>
         {props.product.title}
