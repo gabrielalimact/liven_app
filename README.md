@@ -6,11 +6,6 @@ A API usada foi https://fakestoreapi.com/docs
 
 ## Screenshots
 
-<div style="display: flex;">
-    <div style="flex: 50%; padding: 5px;">
-        <img src="./assets/home.jpeg" alt="App Home Screenshot">
-    </div>
-    <div style="flex: 50%; padding: 5px;">
-        <img src="./assets/cart.jpeg" alt="App Cart Screenshot">
-    </div>
-</div>
+| ![App Home Screenshot](./assets/home.jpeg) | ![App Cart Screenshot](./assets/cart.jpeg) |
+|:--:|:--:|
+| App Home Screenshot | App Cart Screenshot |
