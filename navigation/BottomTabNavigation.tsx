@@ -21,7 +21,7 @@ const screenOptions = {
   } 
 } as BottomTabNavigationOptions;
 
-const BottomTabNavagation = () => {
+const BottomTabNavigation = () => {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen 
@@ -33,9 +33,12 @@ const BottomTabNavagation = () => {
               <Ionicons 
                 name={ focused ? 'home' : 'home-outline'} 
                 size={24} 
-                color={focused ? COLORS.primary : COLORS.gray2} />
+                color={focused ? COLORS.primary : COLORS.gray2}
+                testID="home-tab-icon"
+              />
             );
-          }
+          },          
+          tabBarTestID: 'home-tab'
         }}
       />
 
@@ -48,13 +51,16 @@ const BottomTabNavagation = () => {
               <Ionicons 
                 name={ focused ? 'cart' : 'cart-outline'} 
                 size={24} 
-                color={focused ? COLORS.primary : COLORS.gray2} />
+                color={focused ? COLORS.primary : COLORS.gray2} 
+                testID="cart-tab-icon"
+              />
             );
-          }
+          },
+          tabBarTestID: 'cart-tab'
         }}/>
 
     </Tab.Navigator>
   );
 }
 
-export default BottomTabNavagation;
+export default BottomTabNavigation;

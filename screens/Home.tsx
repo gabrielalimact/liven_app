@@ -54,6 +54,8 @@ const HomeScreen = () => {
       if(filterElectronics){
         setData(electronics)
       }
+    }).catch((err) => {
+      setIsLoading(true)
     })
   }, [filterElectronics, filterJewelery, filterMensClothing, filterWomensClothing, allProducts])
 
@@ -165,7 +167,7 @@ const HomeScreen = () => {
           </View>
         </ScrollView>
         {isLoading ? (
-          <Text>Loading...</Text> 
+          <Text style={{fontFamily: 'bold', fontSize:18}}>Loading the products...</Text> 
         ) : (
           <View style={{
             flexDirection: 'row',
